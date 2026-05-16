@@ -538,7 +538,7 @@ Page({
         quote,
         note: form.note.trim() || `新增 ${instrument.symbol}`
       });
-      wx.showToast({ title: '账户已新增', icon: 'success' });
+      wx.showToast({ title: '持仓已新增', icon: 'success' });
       this.setData({ createVisible: false });
       this.loadDashboard();
       wx.navigateTo({ url: `/pages/accounts/detail?id=${created.id}` });

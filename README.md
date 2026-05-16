@@ -39,7 +39,7 @@ npm run ci
 行情 API Key 只配置在云函数环境变量中，不在小程序端保存。当前报价优先级：
 
 - 美股/ETF/基金：`TWELVE_DATA_API_KEY` -> `FMP_API_KEY` -> Yahoo 兜底 -> `ALPHA_VANTAGE_API_KEY`
-- A 股/港股：东方财富/腾讯系公开接口兜底 -> Yahoo 兜底 -> Twelve Data/FMP/Alpha Vantage
+- A 股/港股：东方财富公开接口兜底 -> Yahoo 兜底 -> Twelve Data/FMP/Alpha Vantage
 - 国内基金：天天基金/东方财富基金估值接口兜底
 - 汇率：仍使用 `ALPHA_VANTAGE_API_KEY`
 

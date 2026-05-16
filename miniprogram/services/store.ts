@@ -198,6 +198,10 @@ export function addInstrumentPosition(input: {
 }): AppData {
   const data = loadAppData();
   const timestamp = nowISO();
+  const account = data.accounts.find((item) => item.id === input.accountId && !item.archived);
+  if (!account) {
+    throw new Error('Account not found.');
+  }
   const symbol = input.instrument.symbol.trim().toUpperCase();
   const kind = instrumentKindFromSearch(String(input.instrument.kind || 'stock'));
   let instrument = data.instruments.find((item) => item.symbol?.toUpperCase() === symbol && item.currency === input.instrument.currency);
@@ -242,7 +246,7 @@ export function addInstrumentPosition(input: {
   data.quotes = [quote, ...data.quotes.filter((item) => item.instrumentId !== instrument.id)];
   data.transactions.unshift({
     id: makeId('tx'),
-    accountId: input.accountId,
+    accountId: account.id,
     type: 'buy',
     tradeDate: timestamp.slice(0, 10),
     amount: { amount: (price * units).toFixed(4), currency: instrument.currency },
