@@ -1,0 +1,36 @@
+{
+  "pages": [
+    "pages/dashboard/index",
+    "pages/accounts/index",
+    "pages/accounts/detail",
+    "pages/settings/index"
+  ],
+  "window": {
+    "navigationStyle": "custom",
+    "backgroundColor": "#f3f5ef",
+    "backgroundTextStyle": "dark"
+  },
+  "tabBar": {
+    "custom": true,
+    "color": "#6f746f",
+    "selectedColor": "#101812",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/dashboard/index",
+        "text": "资产"
+      },
+      {
+        "pagePath": "pages/accounts/index",
+        "text": "账户"
+      },
+      {
+        "pagePath": "pages/settings/index",
+        "text": "设置"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}

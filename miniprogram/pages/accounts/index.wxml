@@ -1,0 +1,145 @@
+<view class="page accounts-page">
+  <t-navbar title="账户" fixed placeholder left-arrow="{{false}}" />
+
+  <view class="top-actions">
+    <view class="round-action" bindtap="openCreate">+</view>
+  </view>
+
+  <view class="accounts-hero">
+    <view class="hero-watermark"></view>
+    <text class="hero-kicker">净资产</text>
+    <text class="hero-title numeric">{{totalText}}</text>
+    <view class="hero-metrics">
+      <view>
+        <text class="metric-label">总资产</text>
+        <text class="metric-value numeric money-positive">{{assetsText}}</text>
+      </view>
+      <view>
+        <text class="metric-label">负债</text>
+        <text class="metric-value numeric money-negative">{{liabilitiesText}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="account-list-card">
+    <view class="list-head">
+      <view class="list-title">
+        <text class="market-arrow">▾</text>
+        <text>资产条目</text>
+        <text class="market-count">{{assetRows.length}}</text>
+      </view>
+      <text class="list-total numeric">{{assetsText}}</text>
+    </view>
+    <block wx:for="{{assetRows}}" wx:key="id">
+      <view class="asset-row pressable" hover-class="pressable--active" data-id="{{item.accountId}}" bindtap="openAccount">
+        <view class="asset-icon"></view>
+        <view class="asset-copy">
+          <text class="asset-name">{{item.name}}</text>
+          <text class="asset-note">{{item.note}}</text>
+        </view>
+        <view class="asset-side">
+          <text class="asset-amount numeric">{{item.amountText}}</text>
+          <text class="asset-currency">{{item.currency}}</text>
+        </view>
+      </view>
+    </block>
+  </view>
+
+  <t-empty wx:if="{{assetRows.length === 0}}" description="暂无账户" />
+
+  <t-popup visible="{{createVisible}}" placement="bottom" using-custom-navbar bind:visible-change="onPopupVisibleChange">
+    <view class="account-sheet">
+      <view class="sheet-head">
+        <text class="sheet-cancel" bindtap="closeCreate">取消</text>
+        <text class="sheet-title">新增账户</text>
+        <text class="sheet-save" bindtap="submitAccount">保存</text>
+      </view>
+
+      <view class="sheet-name-card">
+        <view class="sheet-account-icon"></view>
+        <input class="sheet-name-input" value="{{form.name}}" placeholder="账户名称" bindinput="onNameInput" />
+      </view>
+
+      <view class="sheet-card">
+        <text class="sheet-section-label">账户类型</text>
+        <view class="choice-grid">
+          <block wx:for="{{accountTypeOptions}}" wx:key="value">
+            <view class="choice-pill {{form.accountType === item.value ? 'choice-pill--active' : ''}}" data-type="{{item.value}}" bindtap="selectAccountType">{{item.label}}</view>
+          </block>
+        </view>
+
+        <view wx:if="{{isInvestmentType}}" class="stock-form">
+          <view class="form-grid">
+            <view class="stock-field">
+              <text class="field-label">货币</text>
+              <view class="readonly-pill">{{form.currency}}</view>
+            </view>
+            <view wx:if="{{!isFundType}}" class="stock-field">
+              <text class="field-label">市场</text>
+              <view class="market-segment">
+                <block wx:for="{{marketOptions}}" wx:key="value">
+                  <view class="market-option {{form.market === item.value ? 'market-option--active' : ''}}" data-market="{{item.value}}" bindtap="selectMarket">{{item.label}}</view>
+                </block>
+              </view>
+            </view>
+            <view class="stock-field">
+              <text class="field-label">{{codeLabel}} <text class="required">*</text></text>
+              <input class="stock-input" value="{{form.stockKeyword}}" placeholder="{{searchPlaceholder}}" bindinput="onStockSearchInput" />
+            </view>
+            <view class="stock-field">
+              <text class="field-label">{{unitsLabel}} <text class="required">*</text></text>
+              <input class="stock-input numeric" type="digit" value="{{form.shares}}" placeholder="输入{{unitsLabel}}数" bindinput="onSharesInput" />
+            </view>
+            <view class="stock-field">
+              <text class="field-label">{{priceLabel}}</text>
+              <view class="readonly-pill muted numeric">{{priceText}}</view>
+            </view>
+            <view class="stock-field">
+              <text class="field-label">持有金额</text>
+              <view class="amount-outline numeric">{{holdingAmountText}}</view>
+            </view>
+          </view>
+
+          <text class="search-hint">{{searching ? '搜索中...' : searchHint}}</text>
+          <view wx:if="{{stockResults.length > 0}}" class="result-list">
+            <block wx:for="{{stockResults}}" wx:key="symbol">
+              <view class="result-row {{selectedSymbol === item.symbol ? 'result-row--active' : ''}}" data-symbol="{{item.symbol}}" bindtap="selectStock">
+                <view>
+                  <text class="result-symbol">{{item.symbol}}</text>
+                  <text class="result-name">{{item.name}}</text>
+                </view>
+                <text class="result-meta">{{item.currency}}</text>
+              </view>
+            </block>
+          </view>
+        </view>
+
+        <view wx:else>
+          <text class="sheet-section-label">货币</text>
+          <view class="choice-row">
+            <block wx:for="{{currencyOptions}}" wx:key="value">
+              <view class="choice-pill {{form.currency === item.value ? 'choice-pill--active' : ''}}" data-currency="{{item.value}}" bindtap="selectCurrency">{{item.label}}</view>
+            </block>
+          </view>
+
+          <view class="sheet-field">
+            <text>当前金额</text>
+            <input class="sheet-field-input numeric" type="digit" value="{{form.cashAmount}}" placeholder="0.00" bindinput="onCashAmountInput" />
+          </view>
+        </view>
+
+        <view class="sheet-field">
+          <text>备注</text>
+          <input class="sheet-field-input" value="{{form.note}}" placeholder="输入备注" bindinput="onNoteInput" />
+        </view>
+
+        <view class="sheet-toggle-row" bindtap="toggleIncludeInSummary">
+          <text>计入总资产</text>
+          <view class="sheet-toggle {{form.includeInSummary ? 'sheet-toggle--on' : ''}}">
+            <view class="sheet-toggle-dot"></view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </t-popup>
+</view>

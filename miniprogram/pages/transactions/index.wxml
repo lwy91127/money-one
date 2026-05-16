@@ -1,0 +1,84 @@
+<view class="page transactions-page">
+  <t-navbar title="交易" fixed placeholder left-arrow="{{false}}" />
+
+  <view class="toolbar">
+    <view class="toolbar-glow"></view>
+    <view>
+      <text class="toolbar-title">资金变动</text>
+      <text class="toolbar-subtitle">从账户余额变化生成流水，自动更新净资产</text>
+    </view>
+    <t-button theme="primary" size="small" bind:tap="openCreate">记一笔</t-button>
+  </view>
+
+  <view class="tx-summary-strip">
+    <view>
+      <text class="summary-label">流水</text>
+      <text class="summary-value numeric">{{transactionCount}}</text>
+    </view>
+    <view>
+      <text class="summary-label">今日</text>
+      <text class="summary-value numeric">{{todayCount}}</text>
+    </view>
+    <view>
+      <text class="summary-label">流入</text>
+      <text class="summary-value numeric money-positive">{{inflowCount}}</text>
+    </view>
+    <view>
+      <text class="summary-label">流出</text>
+      <text class="summary-value numeric money-negative">{{outflowCount}}</text>
+    </view>
+  </view>
+
+  <view class="panel">
+    <block wx:for="{{transactions}}" wx:key="id">
+      <t-cell title="{{item.title}}" note="{{item.note}}" bordered="{{!item.last}}">
+        <view slot="right-icon" class="tx-right">
+          <text class="numeric {{item.negative ? 'money-negative' : 'money-positive'}}">{{item.amountText}}</text>
+          <t-tag size="small" variant="light">{{item.typeLabel}}</t-tag>
+        </view>
+      </t-cell>
+    </block>
+  </view>
+  <t-empty wx:if="{{transactions.length === 0}}" description="暂无交易" />
+
+  <t-popup visible="{{createVisible}}" placement="bottom" using-custom-navbar bind:visible-change="onPopupVisibleChange">
+    <view class="sheet">
+      <view class="sheet-title">账户资金变动</view>
+      <view class="field" bindtap="openAccountPicker">
+        <text>账户</text>
+        <text>{{form.accountName}}</text>
+      </view>
+      <view class="balance-preview">
+        <text>当前余额</text>
+        <text class="numeric">{{form.currentBalanceText}}</text>
+      </view>
+      <view class="balance-preview balance-preview--after">
+        <text>变动后</text>
+        <text class="numeric">{{form.afterBalanceText}}</text>
+      </view>
+      <view class="field" bindtap="openTypePicker">
+        <text>变动方式</text>
+        <text>{{form.typeLabel}}</text>
+      </view>
+      <view class="field">
+        <text>变动金额</text>
+        <input class="field-input" type="digit" value="{{form.amount}}" placeholder="0.00" bindinput="onAmountInput" />
+      </view>
+      <view class="field">
+        <text>备注</text>
+        <input class="field-input" value="{{form.note}}" placeholder="可选" bindinput="onNoteInput" />
+      </view>
+      <view class="sheet-actions">
+        <t-button theme="default" variant="outline" bind:tap="closeCreate">取消</t-button>
+        <t-button theme="primary" bind:tap="submitTransaction">保存</t-button>
+      </view>
+    </view>
+  </t-popup>
+
+  <t-picker visible="{{accountPickerVisible}}" value="{{accountPickerValue}}" title="选择账户" usingCustomNavbar bindchange="onAccountPickerChange" bindcancel="closePickers">
+    <t-picker-item options="{{accountOptions}}" />
+  </t-picker>
+  <t-picker visible="{{typePickerVisible}}" value="{{typePickerValue}}" title="选择类型" usingCustomNavbar bindchange="onTypePickerChange" bindcancel="closePickers">
+    <t-picker-item options="{{typeOptions}}" />
+  </t-picker>
+</view>

@@ -1,0 +1,101 @@
+<view class="page detail-page">
+  <t-navbar title="账户详情" fixed placeholder left-arrow bind:go-back="goBack" />
+
+  <view class="detail-hero">
+    <view class="detail-hero-weave"></view>
+    <view class="detail-hero-sheen"></view>
+    <view class="detail-hero__top">
+      <view>
+        <text class="detail-label">{{accountMeta}}</text>
+        <text class="detail-name">{{accountName}}</text>
+      </view>
+      <t-tag theme="{{categoryTheme}}" variant="light">{{categoryLabel}}</t-tag>
+    </view>
+    <text class="detail-total numeric">{{totalText}}</text>
+    <view class="detail-metrics">
+      <view>
+        <text class="metric-label">现金</text>
+        <text class="metric-value numeric">{{cashText}}</text>
+      </view>
+      <view>
+        <text class="metric-label">持仓</text>
+        <text class="metric-value numeric">{{holdingsText}}</text>
+      </view>
+      <view>
+        <text class="metric-label">本位币</text>
+        <text class="metric-value numeric">{{homeTotalText}}</text>
+      </view>
+    </view>
+    <view class="detail-actions">
+      <view class="action-pill action-pill--primary" wx:if="{{canAddHolding}}" bindtap="openHoldingSheet">新增股票/基金</view>
+      <view class="action-pill" bindtap="openCashSheet">更新现金</view>
+      <view class="action-pill action-pill--danger" bindtap="deleteCurrentAccount">删除账户</view>
+    </view>
+  </view>
+
+  <view class="section-title">持仓</view>
+  <view class="holding-list">
+    <block wx:for="{{holdings}}" wx:key="id">
+      <view class="holding-card pressable" hover-class="pressable--active">
+        <view class="holding-main">
+          <text class="holding-symbol">{{item.symbol}}</text>
+          <text class="holding-name">{{item.name}}</text>
+        </view>
+        <view class="holding-side">
+          <text class="holding-value numeric">{{item.valueText}}</text>
+          <text class="numeric {{item.gainNegative ? 'money-negative' : 'money-positive'}}">{{item.gainText}}</text>
+          <text class="holding-day numeric {{item.dayGainNegative ? 'money-negative' : 'money-positive'}}">日盈亏 {{item.dayGainText}}</text>
+        </view>
+        <view class="holding-meta">
+          <text>{{item.unitsText}}</text>
+          <text>{{item.priceText}}</text>
+        </view>
+      </view>
+    </block>
+  </view>
+  <t-empty wx:if="{{holdings.length === 0}}" description="暂无持仓" />
+
+  <t-popup visible="{{cashVisible}}" placement="bottom" using-custom-navbar bind:visible-change="onCashPopupChange">
+    <view class="sheet">
+      <view class="sheet-title">更新现金</view>
+      <view class="field">
+        <text>现金余额</text>
+        <input class="field-input" type="digit" value="{{cashForm.amount}}" placeholder="0.00" bindinput="onCashAmountInput" />
+      </view>
+      <view class="sheet-actions">
+        <t-button variant="outline" bind:tap="closeCashSheet">取消</t-button>
+        <t-button theme="primary" bind:tap="submitCashBalance">保存</t-button>
+      </view>
+    </view>
+  </t-popup>
+
+  <t-popup visible="{{holdingVisible}}" placement="bottom" using-custom-navbar bind:visible-change="onHoldingPopupChange">
+    <view class="sheet">
+      <view class="sheet-title">新增股票/基金</view>
+      <view class="search-box">
+        <input class="search-input" value="{{searchKeyword}}" placeholder="输入股票、ETF、基金名称或代码" bindinput="onSearchInput" />
+        <t-loading wx:if="{{searching}}" size="40rpx" />
+      </view>
+      <view class="search-hint">{{searchHint}}</view>
+      <view class="result-list">
+        <block wx:for="{{searchResults}}" wx:key="symbol">
+          <view class="result-row {{selectedSymbol === item.symbol ? 'result-row--active' : ''}} pressable" hover-class="pressable--active" data-symbol="{{item.symbol}}" bindtap="selectInstrument">
+            <view>
+              <text class="result-symbol">{{item.symbol}}</text>
+              <text class="result-name">{{item.name}}</text>
+            </view>
+            <text class="result-market">{{item.market}} · {{item.currency}}</text>
+          </view>
+        </block>
+      </view>
+      <view class="field">
+        <text>股数</text>
+        <input class="field-input" type="digit" value="{{positionForm.units}}" placeholder="0" bindinput="onUnitsInput" />
+      </view>
+      <view class="sheet-actions">
+        <t-button variant="outline" bind:tap="closeHoldingSheet">取消</t-button>
+        <t-button theme="primary" bind:tap="submitHolding">保存持仓</t-button>
+      </view>
+    </view>
+  </t-popup>
+</view>

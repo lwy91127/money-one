@@ -1,0 +1,12 @@
+<view class="tab-safe">
+  <view class="tab-shell">
+    <block wx:for="{{list}}" wx:key="pagePath">
+      <view class="tab-item {{selected === index ? 'tab-item--active' : ''}}" data-index="{{index}}" data-path="{{item.pagePath}}" bindtap="switchTab" hover-class="tab-item--press">
+        <view class="tab-icon tab-icon--{{item.icon}}">
+          <view class="icon-shape"></view>
+        </view>
+        <text class="tab-label">{{item.text}}</text>
+      </view>
+    </block>
+  </view>
+</view>

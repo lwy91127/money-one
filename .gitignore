@@ -1,0 +1,11 @@
+node_modules/
+miniprogram/miniprogram_npm/
+
+.DS_Store
+.env
+.env.*
+!.env.example
+
+private.*.key
+*.pem
+*.p12

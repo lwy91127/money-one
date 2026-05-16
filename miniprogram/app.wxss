@@ -1,0 +1,109 @@
+page {
+  min-height: 100%;
+  background: #f6f7fb;
+  color: #111827;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+  font-size: 28rpx;
+  line-height: 1.35;
+}
+
+view,
+text,
+button,
+input,
+textarea {
+  box-sizing: border-box;
+}
+
+.page {
+  min-height: 100vh;
+  padding: 0 28rpx 170rpx;
+  background:
+    radial-gradient(circle at 78% 4%, rgba(99, 102, 241, 0.12), rgba(99, 102, 241, 0) 270rpx),
+    linear-gradient(180deg, #fbfcff 0%, rgba(246, 247, 251, 0) 420rpx),
+    #f6f7fb;
+}
+
+.nav-spacer {
+  height: 88rpx;
+}
+
+.section-title {
+  margin: 42rpx 4rpx 18rpx;
+  font-size: 28rpx;
+  font-weight: 800;
+  color: #111827;
+  line-height: 1.2;
+}
+
+.muted {
+  color: #64748b;
+}
+
+.panel {
+  border: 1rpx solid rgba(15, 23, 42, 0.08);
+  border-radius: 34rpx;
+  background: #ffffff;
+  box-shadow: 0 24rpx 70rpx rgba(30, 41, 59, 0.08);
+  overflow: hidden;
+}
+
+.money-positive {
+  color: #16a34a;
+}
+
+.money-negative {
+  color: #dc2626;
+}
+
+.numeric {
+  font-family: "SF Pro Display", "DIN Alternate", -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif;
+  font-variant-numeric: tabular-nums;
+}
+
+.surface-row {
+  border-bottom: 1rpx solid #e5eaf2;
+}
+
+.pressable {
+  transition: transform 160ms ease, box-shadow 160ms ease, opacity 160ms ease;
+}
+
+.pressable--active {
+  transform: translateY(3rpx) scale(0.985);
+  opacity: 0.92;
+}
+
+@keyframes sheen-slide {
+  0% {
+    transform: translateX(-120%) skewX(-18deg);
+    opacity: 0;
+  }
+  28% {
+    opacity: 0.72;
+  }
+  100% {
+    transform: translateX(150%) skewX(-18deg);
+    opacity: 0;
+  }
+}
+
+@keyframes bar-rise {
+  0% {
+    transform: scaleY(0.28);
+    opacity: 0.42;
+  }
+  100% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+@keyframes soft-float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5rpx);
+  }
+}

@@ -1,0 +1,146 @@
+.transactions-page {
+  padding-top: 24rpx;
+}
+
+.toolbar {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 16rpx 0 28rpx;
+  padding: 30rpx;
+  border: 1rpx solid rgba(15, 23, 42, 0.08);
+  border-radius: 30rpx;
+  background: #ffffff;
+  box-shadow: 0 18rpx 46rpx rgba(30, 41, 59, 0.08);
+  overflow: hidden;
+}
+
+.toolbar > view:not(.toolbar-glow),
+.toolbar > t-button {
+  position: relative;
+  z-index: 1;
+}
+
+.toolbar-glow {
+  position: absolute;
+  right: -90rpx;
+  top: -110rpx;
+  width: 260rpx;
+  height: 260rpx;
+  border-radius: 50%;
+  background: rgba(99, 102, 241, 0.12);
+}
+
+.toolbar-title {
+  display: block;
+  font-size: 40rpx;
+  font-weight: 850;
+  color: #111827;
+}
+
+.toolbar-subtitle {
+  display: block;
+  margin-top: 6rpx;
+  color: #64748b;
+  font-size: 23rpx;
+  font-weight: 520;
+}
+
+.tx-summary-strip {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14rpx;
+  margin-bottom: 24rpx;
+}
+
+.tx-summary-strip > view {
+  padding: 22rpx;
+  border: 1rpx solid rgba(15, 23, 42, 0.08);
+  border-radius: 24rpx;
+  background: linear-gradient(180deg, #ffffff, #f7f9ff);
+  box-shadow: 0 12rpx 30rpx rgba(30, 41, 59, 0.06);
+}
+
+.summary-label,
+.summary-value {
+  display: block;
+}
+
+.summary-label {
+  color: #64748b;
+  font-size: 21rpx;
+  font-weight: 600;
+}
+
+.summary-value {
+  margin-top: 8rpx;
+  color: #111827;
+  font-size: 32rpx;
+  font-weight: 830;
+}
+
+.tx-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8rpx;
+  font-size: 29rpx;
+  font-weight: 800;
+}
+
+.sheet {
+  padding: 34rpx 30rpx 48rpx;
+  border-radius: 30rpx 30rpx 0 0;
+  background: #ffffff;
+}
+
+.sheet-title {
+  margin-bottom: 22rpx;
+  font-size: 34rpx;
+  font-weight: 750;
+}
+
+.field {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 96rpx;
+  border-bottom: 1rpx solid #e5eaf2;
+  color: #111827;
+  font-size: 28rpx;
+}
+
+.field-input {
+  flex: 1;
+  text-align: right;
+  color: #111827;
+}
+
+.balance-preview {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 18rpx 0 6rpx;
+  padding: 22rpx 24rpx;
+  border: 1rpx solid #e5eaf2;
+  border-radius: 20rpx;
+  background: #f6f8fd;
+  color: #64748b;
+  font-size: 26rpx;
+}
+
+.balance-preview--after {
+  margin-top: 10rpx;
+  border-color: rgba(22, 163, 74, 0.22);
+  background: rgba(22, 163, 74, 0.08);
+  color: #166534;
+  font-weight: 650;
+}
+
+.sheet-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18rpx;
+  margin-top: 28rpx;
+}

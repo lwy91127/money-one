@@ -1,0 +1,138 @@
+.settings-page {
+  padding-top: 24rpx;
+}
+
+.settings-hero {
+  position: relative;
+  margin: 16rpx 0 30rpx;
+  padding: 32rpx;
+  border: 1rpx solid rgba(15, 23, 42, 0.08);
+  border-radius: 32rpx;
+  background: linear-gradient(135deg, #ffffff 0%, #f7f9ff 100%);
+  box-shadow: 0 28rpx 76rpx rgba(30, 41, 59, 0.10);
+  overflow: hidden;
+}
+
+.settings-hero-glow {
+  position: absolute;
+  right: -70rpx;
+  top: -90rpx;
+  width: 240rpx;
+  height: 240rpx;
+  border-radius: 50%;
+  background: rgba(104, 100, 255, 0.18);
+}
+
+.settings-kicker,
+.settings-title {
+  position: relative;
+  z-index: 1;
+  display: block;
+}
+
+.settings-kicker {
+  color: #64748b;
+  font-size: 22rpx;
+  font-weight: 650;
+}
+
+.settings-title {
+  margin-top: 10rpx;
+  color: #111827;
+  font-size: 40rpx;
+  font-weight: 850;
+  line-height: 1.15;
+}
+
+.settings-status-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10rpx;
+  margin-top: 28rpx;
+}
+
+.settings-status-grid > view {
+  padding: 16rpx 10rpx;
+  border: 1rpx solid rgba(15, 23, 42, 0.08);
+  border-radius: 18rpx;
+  background: #f6f8fd;
+}
+
+.settings-status-grid text {
+  display: block;
+  text-align: center;
+}
+
+.settings-status-grid text:first-child {
+  color: #64748b;
+  font-size: 20rpx;
+  font-weight: 600;
+}
+
+.settings-status-grid text:last-child {
+  margin-top: 8rpx;
+  color: #111827;
+  font-size: 23rpx;
+  font-weight: 780;
+}
+
+.settings-eye {
+  position: relative;
+  width: 40rpx;
+  height: 24rpx;
+  margin: 12rpx auto 0;
+  border: 4rpx solid #111827;
+  border-radius: 50%;
+}
+
+.settings-eye--cell {
+  margin: 0;
+  border-color: #5b5ce2;
+}
+
+.settings-eye__iris {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 12rpx;
+  height: 12rpx;
+  margin-left: -6rpx;
+  margin-top: -6rpx;
+  border-radius: 50%;
+  background: currentColor;
+  color: #111827;
+}
+
+.settings-eye--cell .settings-eye__iris {
+  color: #5b5ce2;
+}
+
+.settings-eye--hidden::after {
+  position: absolute;
+  left: -8rpx;
+  top: 8rpx;
+  width: 56rpx;
+  height: 4rpx;
+  border-radius: 999rpx;
+  background: currentColor;
+  content: '';
+  transform: rotate(-35deg);
+}
+
+.settings-page .panel {
+  margin-bottom: 10rpx;
+}
+
+.danger-button {
+  min-height: 92rpx;
+  padding: 28rpx;
+  border: 1rpx solid rgba(220, 38, 38, 0.16);
+  border-radius: 24rpx;
+  background: rgba(220, 38, 38, 0.08);
+  color: #dc2626;
+  font-size: 28rpx;
+  font-weight: 760;
+  text-align: center;
+}

@@ -1,0 +1,38 @@
+<view class="page settings-page">
+  <t-navbar title="设置" fixed placeholder left-arrow="{{false}}" />
+
+  <view class="settings-hero">
+    <view class="settings-hero-glow"></view>
+    <text class="settings-kicker">偏好与数据</text>
+    <text class="settings-title">主币种、隐私和本机数据</text>
+    <view class="settings-status-grid">
+      <view>
+        <text>隐私</text>
+        <view class="settings-eye {{hideIconClass}}">
+          <view class="settings-eye__iris"></view>
+        </view>
+      </view>
+      <view>
+        <text>主币种</text>
+        <text>{{homeCurrency}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="section-title">偏好</view>
+  <view class="panel">
+    <t-cell title="主币种" note="{{homeCurrency}}" arrow bind:click="openCurrencyPicker" />
+    <t-cell title="金额显示" bind:click="toggleHideAmounts">
+      <view slot="note" class="settings-eye settings-eye--cell {{hideIconClass}}">
+        <view class="settings-eye__iris"></view>
+      </view>
+    </t-cell>
+  </view>
+
+  <view class="section-title">数据</view>
+  <view class="danger-button" bindtap="resetData">重置示例数据</view>
+
+  <t-picker visible="{{currencyPickerVisible}}" value="{{currencyValue}}" title="主币种" usingCustomNavbar bindchange="onCurrencyChange" bindcancel="closeCurrencyPicker">
+    <t-picker-item options="{{currencyOptions}}" />
+  </t-picker>
+</view>
